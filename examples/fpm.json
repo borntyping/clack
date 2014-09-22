@@ -1,0 +1,29 @@
+{
+    "command": "fpm",
+    "environment": {
+        "command": "scl",
+        "arguments": ["enable", "python27"]
+    },
+    "options": {
+        "--source": "python",
+        "--target": "rpm",
+        "--vendor": "Sam Clements",
+        "--epoch": "0"
+    },
+    "iterations": [
+        {
+            "arguments": ["riemann-client"],
+            "options": {
+                "--version": "5.0.0",
+                "--interation": "1"
+            }
+        },
+        {
+            "arguments": ["supermann"],
+            "options": {
+                "--version": "3.0.0",
+                "--interation": "1"
+            }
+        }
+    ]
+}

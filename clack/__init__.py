@@ -1,6 +1,6 @@
-"""Command Line Accessible Calling Kit"""
+"""A tool for executing multiple commands from a data file"""
 
-__version__ = '0.0.0'
+__version__ = '0.1.0'
 __author__ = 'Sam Clements <sam@borntyping.co.uk>'
 
 import clack.callable

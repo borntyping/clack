@@ -7,10 +7,11 @@ class Callable(object):
     def join(*args, sep=' '):
         return sep.join([x for x in args if x])
 
-    def __init__(self, command, *, options={}, arguments=()):
+    def __init__(self, command, *, options={}, arguments=(), dry_run=False):
         self.command = command
         self.options = []
         self.arguments = []
+        self.dry_run = dry_run
 
         self.add_options(options)
         self.add_arguments(arguments)
@@ -45,7 +46,8 @@ class Callable(object):
 
     def run(self):
         print('$', str(self))
-        subprocess.check_call(str(self))
+        if not self.dry_run:
+            subprocess.check_call(str(self))
         return self
 
     def wrap(self, command, seperator='--'):

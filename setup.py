@@ -4,19 +4,27 @@ import setuptools
 
 setuptools.setup(
     name='clack',
-    version='0.0.0-dev',
+    version='0.1.0-dev',
 
     author="Sam Clements",
     author_email="sam.clements@datasift.com",
 
     url="https://github.com/borntyping/python-clack",
-    description="Command Line Accessible Calling Kit",
+    description="A tool for executing multiple commands from a data file",
     long_description=open('README.rst').read(),
     license="MIT",
 
     packages=setuptools.find_packages(),
 
-    install_requires=[],
+    install_requires=[
+        'click'
+    ],
+
+    entry_points={
+        'console_scripts': [
+            'clack = clack.command:main',
+        ]
+    },
 
     classifiers=[
         'Development Status :: 1 - Planning',
