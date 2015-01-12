@@ -8,13 +8,9 @@ import click.testing
 import pytest
 
 
-@pytest.fixture
-def runner():
-    return click.testing.CliRunner()
-
-
 @pytest.yield_fixture
-def example_runner(runner):
+def example_runner():
+    runner = click.testing.CliRunner()
     with runner.isolated_filesystem():
         with open('example.json', 'w') as f:
             json.dump({
