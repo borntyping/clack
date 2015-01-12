@@ -11,4 +11,4 @@ def run():
 
 @pytest.fixture
 def run_example(run):
-    return lambda example: run('examples/{0}.json'.format(example))
+    return lambda example: run('examples/{0}'.format(example))

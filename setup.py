@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='clack',
-    version='1.0.0',
+    version='1.1.0',
 
     author="Sam Clements",
     author_email="sam@borntyping.co.uk",
@@ -17,7 +17,8 @@ setuptools.setup(
 
     install_requires=[
         'click',
-        'jsonschema'
+        'jsonschema',
+        'pyyaml'
     ],
 
     entry_points={

@@ -4,14 +4,14 @@ from __future__ import print_function
 
 import subprocess
 
-import json
+import yaml
 import jsonschema
 
 import clack.utils
 
 
 with open(clack.utils.local_path('schema.json')) as f:
-    SCHEMA = json.load(f)
+    SCHEMA = yaml.load(f)
 
 
 class Command(object):
@@ -25,12 +25,12 @@ class Command(object):
     """
 
     @classmethod
-    def from_json(cls, json):
+    def from_json(cls, data):
         """Create a class instance from JSON or a dictionary."""
-        json.setdefault('command', None)
-        json.setdefault('options', {})
-        json.setdefault('arguments', [])
-        return cls(**json)
+        data.setdefault('command', None)
+        data.setdefault('options', {})
+        data.setdefault('arguments', [])
+        return cls(**data)
 
     @classmethod
     def merge_default(cls, *args, **kwargs):
@@ -112,16 +112,16 @@ class Configuration(object):
     def load(cls, path, schema=SCHEMA):
         """Load and validate a configuration from a JSON file."""
         with open(path, 'r') as f:
-            data = json.load(f)
+            data = yaml.load(f)
         jsonschema.validate(data, schema)
         return cls.from_json(data)
 
     @classmethod
-    def from_json(cls, json, command_class=Command.from_json):
+    def from_json(cls, data, command_class=Command.from_json):
         """Create a class instance from a JSON object."""
         return cls(
-            default=command_class(json.get('default', {})),
-            iterations=list(map(command_class, json['iterations'])))
+            default=command_class(data.get('default', {})),
+            iterations=list(map(command_class, data['iterations'])))
 
     def __init__(self, default, iterations):
         self.default = default

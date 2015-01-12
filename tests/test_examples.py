@@ -7,12 +7,18 @@ import clack.cli
 import pytest
 
 
-@pytest.mark.skipif(
-    subprocess.call('which cowsay', shell=True),
-    reason="cowsay is not installed")
-def test_farm(run_example):
-    assert run_example('farm').exit_code == 0
+COWSAY_AVAILIBLE = bool(subprocess.call('which cowsay', shell=True))
+
+
+@pytest.mark.skipif(COWSAY_AVAILIBLE, reason="cowsay is not installed")
+def test_farm_json(run_example):
+    assert run_example('farm.json').exit_code == 0
+
+
+@pytest.mark.skipif(COWSAY_AVAILIBLE, reason="cowsay is not installed")
+def test_farm_yaml(run_example):
+    assert run_example('farm.yaml').exit_code == 0
 
 
 def test_hello(run_example):
-    assert run_example('hello').exit_code == 0
+    assert run_example('hello.json').exit_code == 0
