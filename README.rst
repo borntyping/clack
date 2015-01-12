@@ -64,6 +64,7 @@ Then run clack on the file:
 And the result:
 
 .. code::
+
      _____
     < moo >
      -----

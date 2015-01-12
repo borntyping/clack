@@ -1,3 +1,7 @@
+"""Configuration for clack - schema, data structures and run methods."""
+
+from __future__ import print_function
+
 import subprocess
 
 import json
@@ -11,24 +15,34 @@ with open(clack.utils.local_path('schema.json')) as f:
 
 
 class Command(object):
+    """Represents a command that can be run.
+
+    Options are a dict/map and can be merged. Arguments are a list and are not
+    merged. The command, options and arguments are used to create a list of
+    arguments to pass to ``subprocess.call``, which should directly avoid
+    string quoting issues. The description is only used when ``announce()`` is
+    called.
+    """
+
     @classmethod
     def from_json(cls, json):
+        """Create a class instance from JSON or a dictionary."""
         json.setdefault('command', None)
         json.setdefault('options', {})
         json.setdefault('arguments', [])
         return cls(**json)
 
     @classmethod
-    def merge_default(cls, *values, default=None):
-        """Returns the first "truthy" value from a series, or a default."""
-        for value in values:
+    def merge_default(cls, *args, **kwargs):
+        """Return the first "truthy" value from a series, or a default."""
+        for value in args:
             if value:
                 return value
-        return default
+        return kwargs.get("default")
 
     @classmethod
     def merge_options(cls, *options):
-        """Merges a series of dictionaries, earlier values take precedence."""
+        """Merge a series of dictionaries, earlier values take precedence."""
         result = {}
         for d in options:
             for k, v in d.items():
@@ -38,7 +52,7 @@ class Command(object):
     @classmethod
     def merge(cls, a, b):
         """
-        Returns a new Command instance merging the given Commands.
+        Return a new Command instance merging the given Commands.
 
         The first ``Command`` passed to this function takes precedence.
         Attributes are merged based on the first "truthy" value, with the
@@ -60,10 +74,11 @@ class Command(object):
         return ' '.join(self.args)
 
     def __repr__(self):
-        return '<{}: {!r}>'.format(self.__class__.__name__, self.args)
+        return '<{c}: {a!r}>'.format(c=self.__class__.__name__, a=self.args)
 
     @property
     def args(self):
+        """Return a list of the commands arguments."""
         arguments = [self.command]
         for k, v in self.options.items():
             arguments.append(k)
@@ -73,18 +88,29 @@ class Command(object):
         return arguments
 
     def announce(self):
+        """Announce the command by printing a message.
+
+        Prints something like this::
+
+            # Description
+            $ command --and arguments
+        """
         if self.description is not None:
             print("#", self.description)
         print("$", self)
 
     def run(self):
+        """Run the command."""
         assert self.command is not None, "No command is set!"
         subprocess.check_call(self.args)
 
 
 class Configuration(object):
+    """Represents an entire configuration."""
+
     @classmethod
     def load(cls, path, schema=SCHEMA):
+        """Load and validate a configuration from a JSON file."""
         with open(path, 'r') as f:
             data = json.load(f)
         jsonschema.validate(data, schema)
@@ -92,6 +118,7 @@ class Configuration(object):
 
     @classmethod
     def from_json(cls, json, command_class=Command.from_json):
+        """Create a class instance from a JSON object."""
         return cls(
             default=command_class(json['default']),
             iterations=list(map(command_class, json['iterations'])))
@@ -101,10 +128,16 @@ class Configuration(object):
         self.iterations = iterations
 
     def __iter__(self):
+        """Return a merged version of each iteration."""
         for iteration in self.iterations:
             yield Command.merge(iteration, self.default)
 
     def run(self, dry_run=False, verbose=False):
+        """Run every merged iteration.
+
+        - Dry run flag stops the iteration from being run.
+        - Verbose flag announces each iteration.
+        """
         for iteration in self:
             if verbose:
                 iteration.announce()
@@ -113,4 +146,5 @@ class Configuration(object):
 
 
 def load(path):
+    """Shortcut for ``Configuration.load``."""
     return Configuration.load(path)

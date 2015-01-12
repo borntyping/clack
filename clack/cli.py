@@ -1,8 +1,5 @@
 """Command line entry point for clack."""
 
-import json
-import functools
-
 import click
 
 import clack.configuration
@@ -14,4 +11,5 @@ import clack.configuration
 @click.argument(
     'path', type=click.Path(exists=True, dir_okay=False, readable=True))
 def main(path, dry_run, verbose):
+    """Load and run a configuration."""
     clack.configuration.load(path).run(dry_run=dry_run, verbose=verbose)

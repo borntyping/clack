@@ -1,5 +1,7 @@
 {
-    "command": "echo",
+    "default": {
+        "command": "echo"
+    },
     "iterations": [
         { "arguments": ["hello"] },
         { "arguments": ["world"] }

@@ -1,4 +1,7 @@
+"""Utility functions for clack."""
+
 import os.path
+
 
 def local_path(filename):
     """Return an absolute path to a file in the current directory."""
