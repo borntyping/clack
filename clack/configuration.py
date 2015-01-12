@@ -120,7 +120,7 @@ class Configuration(object):
     def from_json(cls, json, command_class=Command.from_json):
         """Create a class instance from a JSON object."""
         return cls(
-            default=command_class(json['default']),
+            default=command_class(json.get('default', {})),
             iterations=list(map(command_class, json['iterations'])))
 
     def __init__(self, default, iterations):
