@@ -4,25 +4,42 @@ clack
 
 .. image:: http://img.shields.io/pypi/v/clack.svg?style=flat-square
     :target: https://pypi.python.org/pypi/clack
+    :alt: clack on PyPI
 
 .. image:: http://img.shields.io/pypi/l/clack.svg?style=flat-square
     :target: https://pypi.python.org/pypi/clack
+    :alt: clack on PyPI
 
-.. image:: http://img.shields.io/travis/borntyping/python-clack/master.svg?style=flat-square
-    :target: https://travis-ci.org/borntyping/python-clack
+.. image:: https://readthedocs.org/projects/clack/badge/?version=latest&style=flat-square
+    :target: http://clack.readthedocs.org/en/latest/
+    :alt: Documentation for clack on Read The Docs
+
+.. image:: http://img.shields.io/travis/borntyping/clack/master.svg?style=flat-square
+    :target: https://travis-ci.org/borntyping/clack
+    :alt: Travis-CI build status for clack
+
+.. image:: https://img.shields.io/github/issues/borntyping/clack.svg?style=flat-square
+    :target: https://github.com/borntyping/clack/issues
+    :alt: GitHub issues for clack
 
 |
 
-A Python library to help with calling out to other commands (maybe).
+Run multiple iterations of the same command from a stored configuration.
+
+I build this to help with building multiple packages using fpm_. I had a set of commands where it was useful to share default and common arguments for each package, and the commands were complex enough that I wanted a configuration file describing them (and generic functions are *painful* in make). An example of using clack with fpm_ can be found in ``examples/fpm.json``.
 
 * `Source on GitHub <https://github.com/borntyping/python-clack>`_
 * `Documentation on Read the Docs <http://clack.readthedocs.org/en/latest/>`_
 * `Packages on PyPI <https://pypi.python.org/pypi/clack>`_
 
+.. _fpm: https://github.com/jordansissel/fpm
+
 Usage
 -----
 
-Currently undefined.
+::
+
+    clack examples/cowsay.json
 
 Installation
 ------------

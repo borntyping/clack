@@ -1,5 +1,3 @@
-# -- General configuration ------------------------------------------------
-
 import os
 
 import clack

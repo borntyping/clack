@@ -1,16 +1,14 @@
-#!/usr/bin/env python3
-
 import setuptools
 
 setuptools.setup(
     name='clack',
-    version='0.1.0-dev',
+    version='1.0.0-dev',
 
     author="Sam Clements",
-    author_email="sam.clements@datasift.com",
+    author_email="sam@borntyping.co.uk",
 
-    url="https://github.com/borntyping/python-clack",
-    description="A tool for executing multiple commands from a data file",
+    url="https://github.com/borntyping/clack",
+    description="Run multiple iterations of commands from a config file",
     long_description=open('README.rst').read(),
     license="MIT",
 

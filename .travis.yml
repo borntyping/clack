@@ -4,9 +4,15 @@ env:
   - TOXENV=py27
   - TOXENV=py33
   - TOXENV=py34
-  - TOXENV=flake8
+  - TOXENV=style
   - TOXENV=docs
 install:
   - pip install tox
 script:
   - tox
+sudo: true
+matrix:
+  allow_failures:
+    - env: TOXENV=style
+    - env: TOXENV=docs
+  fast_finish: true
