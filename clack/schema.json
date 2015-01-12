@@ -41,10 +41,17 @@
                     }
                 },
                 "arguments": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "description": {
                     "type": "string"

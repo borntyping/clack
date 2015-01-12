@@ -2,5 +2,5 @@ default:
     command: cowsay
     options: { -f: default }
 iterations:
-    - { arguments: ['MOO'] }
-    - { arguments: ['BAA'], options: { -f: sheep } }
+    - { arguments: 'MOO' }
+    - { arguments: 'BAA', options: { -f: sheep } }

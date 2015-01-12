@@ -27,27 +27,23 @@ class Command(object):
     @classmethod
     def from_json(cls, data):
         """Create a class instance from JSON or a dictionary."""
+        # Set default values for essential attributes
         data.setdefault('command', None)
         data.setdefault('options', {})
         data.setdefault('arguments', [])
+
+        # Some JSON attributes can be either a string or a list, but are always
+        # transformed into a list by splitting strings on spaces
+        data['arguments'] = cls.from_json_str_or_list(data['arguments'])
+
         return cls(**data)
 
-    @classmethod
-    def merge_default(cls, *args, **kwargs):
-        """Return the first "truthy" value from a series, or a default."""
-        for value in args:
-            if value:
-                return value
-        return kwargs.get("default")
-
-    @classmethod
-    def merge_options(cls, *options):
-        """Merge a series of dictionaries, earlier values take precedence."""
-        result = {}
-        for d in options:
-            for k, v in d.items():
-                result.setdefault(k, v)
-        return result
+    @staticmethod
+    def from_json_str_or_list(value):
+        """Modify a key to ensure it is a list"""
+        if isinstance(value, clack.utils.string_types):
+            value = value.split(' ')
+        return value
 
     @classmethod
     def merge(cls, a, b):
@@ -63,6 +59,23 @@ class Command(object):
             options=cls.merge_options(a.options, b.options),
             arguments=cls.merge_default(a.arguments, b.arguments, default=[]),
             description=cls.merge_default(a.description, b.description))
+
+    @staticmethod
+    def merge_default(*args, **kwargs):
+        """Return the first "truthy" value from a series, or a default."""
+        for value in args:
+            if value:
+                return value
+        return kwargs.get("default")
+
+    @staticmethod
+    def merge_options(*options):
+        """Merge a series of dictionaries, earlier values take precedence."""
+        result = {}
+        for d in options:
+            for k, v in d.items():
+                result.setdefault(k, v)
+        return result
 
     def __init__(self, command, options, arguments, description=None):
         self.command = command
