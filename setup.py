@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='clack',
-    version='1.0.0-dev',
+    version='1.0.0',
 
     author="Sam Clements",
     author_email="sam@borntyping.co.uk",
