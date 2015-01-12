@@ -1,0 +1,7 @@
+{
+    "command": "echo",
+    "iterations": [
+        { "arguments": ["hello"] },
+        { "arguments": ["world"] }
+    ]
+}

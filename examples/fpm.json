@@ -1,14 +1,16 @@
 {
-    "command": "fpm",
+    "default": {
+        "command": "fpm",
+        "options": {
+            "--source": "python",
+            "--target": "rpm",
+            "--vendor": "Sam Clements",
+            "--epoch": "0"
+        },
+    },
     "environment": {
         "command": "scl",
         "arguments": ["enable", "python27"]
-    },
-    "options": {
-        "--source": "python",
-        "--target": "rpm",
-        "--vendor": "Sam Clements",
-        "--epoch": "0"
     },
     "iterations": [
         {

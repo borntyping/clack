@@ -13,14 +13,16 @@ setuptools.setup(
     license="MIT",
 
     packages=setuptools.find_packages(),
+    package_data={'clack': ['schema.json']},
 
     install_requires=[
-        'click'
+        'click',
+        'jsonschema'
     ],
 
     entry_points={
         'console_scripts': [
-            'clack = clack.command:main',
+            'clack = clack.cli:main',
         ]
     },
 

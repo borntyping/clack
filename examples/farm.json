@@ -1,0 +1,15 @@
+{
+    "default": {
+        "command": "cowsay",
+        "options": { "-f": "default" }
+    },
+    "iterations": [
+        {
+            "arguments": ["moo"]
+        },
+        {
+            "arguments": ["baa"],
+            "options": { "-f": "sheep" }
+        }
+    ]
+}

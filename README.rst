@@ -32,19 +32,65 @@ I build this to help with building multiple packages using fpm_. I had a set of 
 * `Documentation on Read the Docs <http://clack.readthedocs.org/en/latest/>`_
 * `Packages on PyPI <https://pypi.python.org/pypi/clack>`_
 
-.. _fpm: https://github.com/jordansissel/fpm
-
 Usage
 -----
 
-::
+Create a configuration file:
 
-    clack examples/cowsay.json
+.. code:: json
+
+    {
+        "default": {
+            "command": "cowsay",
+            "options": { "-f": "default" }
+        },
+        "iterations": [
+            {
+                "arguments": ["moo"]
+            },
+            {
+                "arguments": ["baa"],
+                "options": { "-f": "sheep" }
+            }
+        ]
+    }
+
+Then run clack on the file:
+
+.. code:: bash
+
+    clack examples/farm.json
+
+And the result:
+
+.. code::
+     _____
+    < moo >
+     -----
+            \   ^__^
+             \  (oo)\_______
+                (__)\       )\/\
+                    ||----w |
+                    ||     ||
+     _____
+    < baa >
+     -----
+      \
+       \
+           __
+          UooU\.'@@@@@@`.
+          \__/(@@@@@@@@@@)
+               (@@@@@@@@)
+               `YY~~~~YY'
+                ||    ||
+
 
 Installation
 ------------
 
-::
+Install clack with pip_ or pipsi_.
+
+.. code:: bash
 
     pip install clack
 
@@ -57,3 +103,7 @@ Authors
 -------
 
 ``clack`` was written by `Sam Clements <https://github.com/borntyping>`_.
+
+.. _fpm: https://github.com/jordansissel/fpm
+.. _pip: http://pip.readthedocs.org/en/stable/
+.. _pipsi: https://github.com/mitsuhiko/pipsi
