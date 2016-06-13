@@ -26,7 +26,7 @@ clack
 
 Run multiple iterations of the same command from a stored configuration.
 
-I build this to help with building multiple packages using fpm_. I had a set of commands where it was useful to share default and common arguments for each package, and the commands were complex enough that I wanted a configuration file describing them (and generic functions are *painful* in make). An example of using clack with fpm_ can be found in ``examples/fpm.json``.
+I built this to help with building multiple packages using fpm_. I had a set of commands where it was useful to share default and common arguments for each package, and the commands were complex enough that I wanted a configuration file describing them (and generic functions are *painful* in make). An example of using clack with fpm_ can be found in ``examples/fpm.json``.
 
 * `Source on GitHub <https://github.com/borntyping/clack>`_
 * `Documentation on Read the Docs <http://clack.readthedocs.org/en/latest/>`_
